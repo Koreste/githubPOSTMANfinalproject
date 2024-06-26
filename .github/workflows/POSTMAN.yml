@@ -15,9 +15,8 @@ jobs:
       - name: Run API tests
         run: |
          postman collection run 34657999-74191439-fb40-4fa7-b249-f8e65c949fef -e 34657999-9a20b153-0bdb-49df-a439-db22b4b0655b
-      - name: publish report
+      - name: générer un rapport
         uses: actions/upload-artifact@v4
-        if: always()
         with:
-          path: ./newman/*.html
-          name: html-report
+         name: Rapport-html
+         path: cypress/reports
