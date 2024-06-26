@@ -11,7 +11,7 @@ jobs:
         run: |
           curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
       - name: Login to Postman CLI
-        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+        run: postman login --with-api-key ${{PMAK-667c115db4a88c000109f61b-1ced11ad47b08370b89ec9372ab9160f6a}}
       - name: Run API tests
         run: |
           postman collection run "${{ github.workspace }}/postman/collections/TRELLO.json" --integration-id "165147-${{ github.run_id }}"
