@@ -1,22 +1,29 @@
-name: Automated API tests using Postman CLI
+name: Postman
 
-on: push
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
 
 jobs:
-  automated-api-tests:
-    runs-on: windows-latest
+  demo:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Install Postman CLI
-        run: |
-          powershell.exe -NoProfile -InputFormat None -ExecutionPolicy AllSigned -Command "[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://dl-cli.pstmn.io/install/win64.ps1'))"
-      - name: Login to Postman CLI
-        run: postman login --with-api-key PMAK-667c115db4a88c000109f61b-bea773f3f0aa26a13e579d9889eb68d5af
-      - name: Run API tests
-        run: |
-         postman collection run 34657999-74191439-fb40-4fa7-b249-f8e65c949fef -e 34657999-9a20b153-0bdb-49df-a439-db22b4b0655b
-      - name: générer un rapport
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Install newman
+        run: npm install -g newman
+
+      - name: Install newman-reporter-htmlextra
+        run: npm install -g newman newman-reporter-htmlextra
+
+      - name: Run newman
+        run: newman run postman/collection.json -e postman/env.json -d postman/data.json -r cli,htmlextra
+
+      - name: publish report
         uses: actions/upload-artifact@v4
+        if: always()
         with:
-         name: Rapport-html
-         path: .git/
+          path: ./newman/*.html
+          name: html-report
