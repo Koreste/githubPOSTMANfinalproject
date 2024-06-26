@@ -4,14 +4,15 @@ on: push
 
 jobs:
   automated-api-tests:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - name: Install Postman CLI
         run: |
-          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+          powershell.exe -NoProfile -InputFormat None -ExecutionPolicy AllSigned -Command "[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://dl-cli.pstmn.io/install/win64.ps1'))"
       - name: Login to Postman CLI
-        run: postman login --with-api-key PMAK-667c115db4a88c000109f61b-1ced11ad47b08370b89ec9372ab9160f6a 
+        run: postman login --with-api-key PMAK-667c115db4a88c000109f61b-bea773f3f0aa26a13e579d9889eb68d5af
       - name: Run API tests
         run: |
           postman collection run "${{ github.workspace }}/postman/collections/TRELLO.json" --integration-id "165147-${{ github.run_id }}"
+
