@@ -19,7 +19,7 @@ jobs:
         run: npm install -g newman newman-reporter-htmlextra
 
       - name: Run newman
-        run: newman run postman/collection.json -e postman/env.json -d postman/data.json -r cli,htmlextra
+        run: newman run TRELLO.postman_collection.json -e Non Fonctionel.postman_environment.json -r cli,htmlextra
 
       - name: publish report
         uses: actions/upload-artifact@v4
