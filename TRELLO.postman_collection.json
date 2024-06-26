@@ -1,0 +1,1743 @@
+{
+	"info": {
+		"_postman_id": "74191439-fb40-4fa7-b249-f8e65c949fef",
+		"name": "TRELLO",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34657999",
+		"_collection_link": "https://www.postman.com/wild-code-school-202404-fab-team/workspace/projet-final-grp2/collection/34657999-74191439-fb40-4fa7-b249-f8e65c949fef?action=share&source=collection_link&creator=34657999"
+	},
+	"item": [
+		{
+			"name": "TEST PASSANT",
+			"item": [
+				{
+					"name": "MEMBER",
+					"item": [
+						{
+							"name": "Member",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.globals.set(\"Trello_key\", \"559a21dd17a260aae17d5bafc52ab521\");\r",
+											"pm.globals.set(\"Trello_token\",\"ATTA655c0cf4b323f3b1d3b20385707776330e81b9f77fc3ed3d5cf3ebac520398f8A76BC28F\");\r",
+											"pm.globals.set(\"BaseURL\", \"https://api.trello.com\");\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/member/me?key={{Trello_key}}&token={{Trello_token}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"member",
+										"me"
+									],
+									"query": [
+										{
+											"key": "key",
+											"value": "{{Trello_key}}"
+										},
+										{
+											"key": "token",
+											"value": "{{Trello_token}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.trello.com/1/tokens/{{Trello_token}}?key={{Trello_key}}&token={{Trello_token}}",
+									"protocol": "https",
+									"host": [
+										"api",
+										"trello",
+										"com"
+									],
+									"path": [
+										"1",
+										"tokens",
+										"{{Trello_token}}"
+									],
+									"query": [
+										{
+											"key": "key",
+											"value": "{{Trello_key}}"
+										},
+										{
+											"key": "token",
+											"value": "{{Trello_token}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "BOARDS",
+					"item": [
+						{
+							"name": "create boards",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"const boardid = pm.response.json().id; \r",
+											"console.log('Setting boardid', boardid);\r",
+											"\r",
+											"pm.collectionVariables.set(\"boardid\", boardid);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"nameBoards\", \"Test_api\");"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/1/boards/?name={{nameBoards}}&{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"boards",
+										""
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "{{nameBoards}}"
+										},
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get boards",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/boards/{{boardid}}?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"boards",
+										"{{boardid}}"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update boards",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"name\": \"Test-api-update\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/1/boards/{{boardid}}?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"boards",
+										"{{boardid}}"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "LIST",
+					"item": [
+						{
+							"name": "create list",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"const listid = pm.response.json().id; \r",
+											"console.log('Setting listid', listid);\r",
+											"\r",
+											"pm.collectionVariables.set(\"listid\", listid);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/boards/{{boardid}}/lists?name=Test_api&{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"boards",
+										"{{boardid}}",
+										"lists"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Test_api"
+										},
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get list boards",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/boards/{{boardid}}/lists?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"boards",
+										"{{boardid}}",
+										"lists"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update list",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" : \"UPDATE LIST\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/1/lists/{{listid}}?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"lists",
+										"{{listid}}"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CARTS",
+					"item": [
+						{
+							"name": "create card",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"const cardsId = pm.response.json().id; \r",
+											"console.log('Setting cardsid', cardsId);\r",
+											"\r",
+											"pm.collectionVariables.set(\"cardsid\", cardsId);\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" : \"TEST API  !\",\r\n    \"pos\" : \"top\",\r\n    \"desc\" : \"TEST API DESCRIPTION SALUT 123544949449498\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/1/cards?idList={{listid}}&{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"cards"
+									],
+									"query": [
+										{
+											"key": "idList",
+											"value": "{{listid}}"
+										},
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get cards",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/cards/{{cardsid}}?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"cards",
+										"{{cardsid}}"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update cards",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"desc\" : \"UPDATE DESCRIPTION \"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/1/cards/{{cardsid}}?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"cards",
+										"{{cardsid}}"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Archive all cards",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/lists/{{listid}}/archiveAllCards?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"lists",
+										"{{listid}}",
+										"archiveAllCards"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CHECKLIST",
+					"item": [
+						{
+							"name": "creat checklist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"const checkId = pm.response.json().id; \r",
+											"console.log('Setting checkid', checkId);\r",
+											"\r",
+											"pm.collectionVariables.set(\"checkid\", checkId);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" : \"test api\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/1/checklists?idCard={{cardsid}}&{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"checklists"
+									],
+									"query": [
+										{
+											"key": "idCard",
+											"value": "{{cardsid}}"
+										},
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update checklist",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" : \"Update checklist\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/1/checklists/{{checkid}}?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"checklists",
+										"{{checkid}}"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get checklist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"\tpm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/checklists/{{checkid}}?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"checklists",
+										"{{checkid}}"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CHECKITEM",
+					"item": [
+						{
+							"name": "creat checkitem",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"const checkitemId = pm.response.json().id; \r",
+											"console.log('Setting checkitemid', checkitemId);\r",
+											"\r",
+											"pm.collectionVariables.set(\"checkitemid\", checkitemId);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/checklists/{{checkid}}/checkItems?name=test_api&{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"checklists",
+										"{{checkid}}",
+										"checkItems"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "test_api"
+										},
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get checkitem",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/checklists/{{checkid}}/checkItems/{{checkitemid}}?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"checklists",
+										"{{checkid}}",
+										"checkItems",
+										"{{checkitemid}}"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DELETE",
+					"item": [
+						{
+							"name": "delete checkitem",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/checklists/{{checkid}}/checkItems/{{checkitemid}}?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"checklists",
+										"{{checkid}}",
+										"checkItems",
+										"{{checkitemid}}"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete checklist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"\tpm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/checklists/{{checkid}}?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"checklists",
+										"{{checkid}}"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete cards",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/cards/{{cardsid}}?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"cards",
+										"{{cardsid}}"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete boards",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/boards/{{boardid}}?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"boards",
+										"{{boardid}}"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "TEST NON PASSANT",
+			"item": [
+				{
+					"name": "BOARDS",
+					"item": [
+						{
+							"name": "Create boards",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Body matches string\", function () {\r",
+											"\tpm.expect(pm.response.text()).to.include(\"invalid value for name\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/boards/?name={{nameBoardsNF}}&{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"boards",
+										""
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "{{nameBoardsNF}}"
+										},
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get boards",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"\tpm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/boards/{{boardidNF}}?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"boards",
+										"{{boardidNF}}"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete boards",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"\tpm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/boards/{{boardidNF}}?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"boards",
+										"{{boardidNF}}"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "LIST",
+					"item": [
+						{
+							"name": "Create list",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/boards/{{boardidNF}}/lists?name=Test_api&{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"boards",
+										"{{boardidNF}}",
+										"lists"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Test_api"
+										},
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get list",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/boards/{{boardidNF}}/lists?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"boards",
+										"{{boardidNF}}",
+										"lists"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CARDS",
+					"item": [
+						{
+							"name": "create cards",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"\tpm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/cards?idList={{listidNF}}&{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"cards"
+									],
+									"query": [
+										{
+											"key": "idList",
+											"value": "{{listidNF}}"
+										},
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get cards",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"\tpm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/cards/{{cardsidNF}}?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"cards",
+										"{{cardsidNF}}"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"\tpm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/cards/{{cardsidNF}}?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"cards",
+										"{{cardsidNF}}"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CHECKLIST",
+					"item": [
+						{
+							"name": "create checklist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {\r",
+											"\tpm.response.to.have.status(401);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/checklists?idCard={{cardsidNF}}&{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"checklists"
+									],
+									"query": [
+										{
+											"key": "idCard",
+											"value": "{{cardsidNF}}"
+										},
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get checklist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"\tpm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/checklists/{{checkidNF}}?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"checklists",
+										"{{checkidNF}}"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"\tpm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/checklists/{{checkidNF}}?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"checklists",
+										"{{checkidNF}}"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CHECKITEM",
+					"item": [
+						{
+							"name": "create checkitem",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"\tpm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/checklists/{{checkidNF}}/checkItems?name=test_api&{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"checklists",
+										"{{checkidNF}}",
+										"checkItems"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "test_api"
+										},
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get checkitem",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"\tpm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/checklists/{{checkidNF}}/checkItems/{{checkitemidNF}}?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"checklists",
+										"{{checkidNF}}",
+										"checkItems",
+										"{{checkitemidNF}}"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete checkitem",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"\tpm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BaseURL}}/1/checklists/{{checkidNF}}/checkItems/{{checkitemidNF}}?{{API-TOKEN}}",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"1",
+										"checklists",
+										"{{checkidNF}}",
+										"checkItems",
+										"{{checkitemidNF}}"
+									],
+									"query": [
+										{
+											"key": "{{API-TOKEN}}",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": ""
+		},
+		{
+			"key": "boardsID",
+			"value": ""
+		},
+		{
+			"key": "name",
+			"value": ""
+		},
+		{
+			"key": "listID",
+			"value": ""
+		},
+		{
+			"key": "cardsID",
+			"value": ""
+		},
+		{
+			"key": "cardsid",
+			"value": ""
+		},
+		{
+			"key": "listid",
+			"value": ""
+		},
+		{
+			"key": "boardid",
+			"value": ""
+		},
+		{
+			"key": "checkid",
+			"value": ""
+		},
+		{
+			"key": "checkitemid",
+			"value": ""
+		},
+		{
+			"key": "nameBoards",
+			"value": "Test_api"
+		}
+	]
+}
